@@ -20,3 +20,21 @@ export const getAllToDo = async(req,res)=>{
        return res.status(500).json(error.message); 
     }
 }
+
+export const toggleTodoDone= async(req,res)=>{
+    try {
+        const todoRef = await todo.findById(req.params.id)
+        console.log(todoRef)
+        const todoSave = await todo.findOneAndUpdate(
+            {_id:req.params.id},
+            {done: !todoRef.done}
+        )
+
+        await todoSave.save();
+        return res.status(200).json(todoSave)
+
+    } catch (error) {
+        return res.status(500).json(error.message); 
+    }
+}
+
