@@ -1,10 +1,7 @@
 import mongoose from "mongoose";
-import dotenv from 'dotenv'
-
-dotenv.config();
 
 const Connection = () =>{
-    const MONGODB_URI = process.env.DB_URL;
+    const MONGODB_URI = `mongodb+srv://todo_DB:inQgm5TcmXWeIGeh@asesometodo.69tnvuv.mongodb.net/?retryWrites=true&w=majority`;
 
     mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
