@@ -24,7 +24,6 @@ export const getAllToDo = async(req,res)=>{
 export const toggleTodoDone= async(req,res)=>{
     try {
         const todoRef = await todo.findById(req.params.id)
-        console.log(todoRef)
         const todoSave = await todo.findOneAndUpdate(
             {_id:req.params.id},
             {done: !todoRef.done}
@@ -35,6 +34,28 @@ export const toggleTodoDone= async(req,res)=>{
 
     } catch (error) {
         return res.status(500).json(error.message); 
+    }
+}
+
+export const updateTodo = async(req,res)=>{
+    try {
+        await todo.findOneAndUpdate(
+            {_id:req.params.id},
+            {data: req.body.data}
+        )
+        const todoSave = await todo.findById(req.params.id)
+        return res.status(200).json(todoSave)
+    } catch (error) {
+       return res.status(500).json(error.message); 
+    }
+}
+
+export const deleteTodo = async(req,res)=>{
+    try {
+        const todoSave = await todo.findByIdAndDelete(req.params.id)
+        return res.status(200).json(todoSave)
+    } catch (error) {
+       return res.status(500).json(error.message); 
     }
 }
 
